@@ -1,0 +1,11 @@
+# env file
+.env
+
+# vscord settings
+.vscode
+
+# firebase credentials
+meca-firebase-adminsdk.json
+
+# python cache
+__pycache__
