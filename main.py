@@ -62,9 +62,9 @@ async def on_guild_join(guild: Guild):
     """
     サーバー追加時に必要なチャンネル郡が存在しなければ生成する
     """
-    get_or_create_meca_category(guild)
-    get_or_create_working_room_vc(guild)
-    get_or_create_log_tc(guild)
+    await get_or_create_meca_category(guild)
+    await get_or_create_working_room_vc(guild)
+    await get_or_create_log_tc(guild)
 
 
 @bot.event
@@ -77,7 +77,7 @@ async def on_voice_state_update(member: Member, before: VoiceState, after: Voice
     if before.channel == after.channel:
         return
 
-    log_tc = get_or_create_log_tc(member.guild)
+    log_tc = await get_or_create_log_tc(member.guild)
     if is_working_room_vc(after.channel):
         # 入室時
         db.collection("status").document(str(member.id)).set({"started": datetime.utcnow().timestamp()})  # firestoreに作業開始時のUTC unix timeを保存

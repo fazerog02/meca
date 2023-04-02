@@ -35,35 +35,35 @@ def is_log_tc(tc: TextChannel | None) -> bool:
     return tc.name == LOG_TC_NAME
 
 
-def get_or_create_meca_category(guild: Guild) -> CategoryChannel:
+async def get_or_create_meca_category(guild: Guild) -> CategoryChannel:
     """
     指定したサーバー内のmecaカテゴリを取得する(存在しなかった場合は新しく生成する)
     """
     category = discord_get(guild.categories, name=MECA_CATEGORY_NAME)
     if category is None:
-        category = guild.create_category_channel(MECA_CATEGORY_NAME)
+        category = await guild.create_category_channel(MECA_CATEGORY_NAME)
     return category
 
 
-def get_or_create_working_room_vc(guild: Guild) -> VoiceChannel:
+async def get_or_create_working_room_vc(guild: Guild) -> VoiceChannel:
     """
     指定したサーバー内の作業用ボイスチャンネルを取得する(存在しなかった場合は新しく生成する)
     """
-    meca_category = get_or_create_meca_category(guild)
+    meca_category = await get_or_create_meca_category(guild)
 
     vc = discord_get(meca_category.voice_channels, name=WORKING_ROOM_VC_NAME)
     if vc is None:
-        vc = meca_category.create_voice_channel(WORKING_ROOM_VC_NAME)
+        vc = await meca_category.create_voice_channel(WORKING_ROOM_VC_NAME)
     return vc
 
 
-def get_or_create_log_tc(guild: Guild) -> TextChannel:
+async def get_or_create_log_tc(guild: Guild) -> TextChannel:
     """
     指定したサーバー内のログ出力用テキストチャンネルを取得する(存在しなかった場合は新しく生成する)
     """
-    meca_category = get_or_create_meca_category(guild)
+    meca_category = await get_or_create_meca_category(guild)
 
     tc = discord_get(meca_category.text_channels, name=LOG_TC_NAME)
     if tc is None:
-        tc = meca_category.create_text_channel(LOG_TC_NAME)
+        tc = await meca_category.create_text_channel(LOG_TC_NAME)
     return tc
