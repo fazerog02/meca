@@ -45,11 +45,11 @@ def get_or_create_meca_category(guild: Guild) -> CategoryChannel:
     return category
 
 
-def get_or_create_working_room_vc(guild: Guild, does_create=False) -> VoiceChannel:
+def get_or_create_working_room_vc(guild: Guild) -> VoiceChannel:
     """
     指定したサーバー内の作業用ボイスチャンネルを取得する(存在しなかった場合は新しく生成する)
     """
-    meca_category = get_or_create_meca_category(guild, does_create)
+    meca_category = get_or_create_meca_category(guild)
 
     vc = discord_get(meca_category.voice_channels, name=WORKING_ROOM_VC_NAME)
     if vc is None:
